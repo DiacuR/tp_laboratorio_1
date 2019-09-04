@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1567614737 source:c:\users\diacu\desktop\carpeta de trabajo\actual\tp_laboratorio_1-master\tp_1\operaciones.c
+	<stdio.h>
+	<stdlib.h>
+
+1567614995 source:c:\users\diacu\desktop\carpeta de trabajo\actual\tp_laboratorio_1-master\tp_1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"operaciones.h"
+
+1567612377 c:\users\diacu\desktop\carpeta de trabajo\actual\tp_laboratorio_1-master\tp_1\operaciones.h
+
