@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1570232786 source:c:\users\diacu\desktop\carpeta de trabajo\tp 2\empleado.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Empleado.h"
+
+1570232561 c:\users\diacu\desktop\carpeta de trabajo\tp 2\empleado.h
+
+1570242518 source:c:\users\diacu\desktop\carpeta de trabajo\tp 2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Empleado.h"
+	"ArrayEmployees.h"
+
+1570240862 c:\users\diacu\desktop\carpeta de trabajo\tp 2\arrayemployees.h
+
+1570242894 source:c:\users\diacu\desktop\carpeta de trabajo\tp 2\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"ArrayEmployees.h"
+	"Empleado.h"
+
