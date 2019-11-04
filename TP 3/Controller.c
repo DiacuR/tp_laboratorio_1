@@ -61,7 +61,57 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int empleadoEncontrado;
+    char confirmar;
+    int id;
+    int retorno = -1;
+    int len;
+    Employee* this;
+
+    if(pArrayListEmployee != NULL)
+    {
+        len = ll_len(pArrayListEmployee);
+        controller_ListEmployee(pArrayListEmployee);
+
+        if(getInt(&id,"Ingrese el Id del Empleado a Borrar: ","\nError el Id solo debe tener numeros..",0,len))
+        {
+            retorno = -2;
+        }
+        else
+        {
+          ///  empleadoEncontrado = findEmployeeById(lista,len,id);///CAMBIAR ESTA FUNCION
+
+            if(empleadoEncontrado != -1)
+            {
+                this = ll_get(pArrayListEmployee,empleadoEncontrado);
+                mostrarEmpleado(this);
+
+                continuarSiONo(&confirmar,"\nEsta seguro que desea eliminar a este Empleado? S/N : ");///ESTA TAMBIEN
+
+                if(confirmar == 'n')
+                {
+                    printf("Baja cancelada\n\n");
+                }
+                else
+                {
+                    ll_remove(pArrayListEmployee,empleadoEncontrado);
+                    printf("Borrado exitoso\n\n");
+                    retorno = 0;
+                }
+
+                system("pause");
+                system("cls");
+            }
+            else
+            {
+                printf("\nEmpleado NO encontrado..\n");
+                system("pause");
+                system("cls");
+            }
+        }
+    }
+
+    return retorno;
 }
 
 /** \brief Listar empleados
@@ -85,7 +135,32 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int order;
+    int comoOrdenar;
+    getInt(&order,"\t---------- Menu Ordenar ----------\n\n"
+           "1. Ordenar por id\n"
+           "2. Ordenar por Nombre\n"
+           "3. Ordenar por Horas Trabajadas\n"
+           "4. Ordenar por Sueldo\n\n"
+           "Ingrese opcion: ","ERROR. Debe ingresar un numero...",1,4);
+
+    switch(order)
+    {
+    case 1:
+
+        formaDeOrdenar("\t---------- Ordenar por id ----------\n\n",&comoOrdenar);
+
+///        ordenarAscendienteODecendiente(comoOrdenar,);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+        break;
+
+    case 2:
+
+        formaDeOrdenar("\t---------- Ordenar por id ----------\n\n",&comoOrdenar);
+
+
+
+
+    }
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).

@@ -242,3 +242,27 @@ int compararPorNombre(void* e1,void* e2)
 
     return compara;
 }
+
+/*
+int ordenarAscendienteODecendiente(int orden)
+{
+    int retorno = 1;
+
+    switch(orden)
+        {
+        case 1:
+            printf("\n\n\t---------- Ordenado de manera Ascendente ----------\n\n");
+            ll_sort(pArrayListEmployee,compararPorLegajo,comoOrdenar);
+            retorno = 0;
+            break;
+
+        case 2:
+            printf("\n\n\t---------- Ordenado de manera Decendente ----------\n\n");
+            ll_sort(pArrayListEmployee,compararPorLegajo,comoOrdenar);
+            retorno = 0;
+            break;
+        }
+
+        return retorno;
+}
+*/

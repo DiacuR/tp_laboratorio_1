@@ -32,4 +32,6 @@ int compararPorSueldo(void*,void*);
 
 int compararPorNombre(void* e1,void* e2);
 
+//int ordenarAscendienteODecendiente(int orden,(*pFunc(void* void*));
+
 #endif // employee_H_INCLUDED
