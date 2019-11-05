@@ -28,13 +28,9 @@ int main()
     int idEmpleado = ID_EMPLEADOS;
     LinkedList* listaEmpleados = ll_newLinkedList();
     FILE* pArchivo;
-    Employee* emp;
-    char nombre[10] = {"diacu"};
-    emp= employee_newParametros(1,nombre,150,10000);
-    mostrarColumnas();
-    mostrarEmpleado(emp);
+
     do{
-            system("cls");
+            //system("cls");
             getInt(&option,"\n1. CARGAR EMPLEADOS DE data.csv (MODO TEXTO)"
                          "\n2. CARGAR EMPLEADOS DE data.bin (MODO BINARIO)"
                          "\n3. ALTA DE EMPLEADO"
@@ -60,44 +56,76 @@ int main()
                 break;
 
             case 2:
-                controller_loadFromBinary("data.bin",listaEmpleados);
-                employee_Id(listaEmpleados, &idEmpleado);
+                if(!controller_loadFromBinary("data.bin",listaEmpleados))
+                {
+                    printf("\nArchivo cargado con exito\n");
+                    employee_Id(listaEmpleados, &idEmpleado);
+                }
+                else
+                {
+                    printf("\nERROR. El archivo no se pudo cargar...\n");
+                }
+
                 system("pause");
                 break;
 
             case 3:
                 controller_addEmployee(listaEmpleados,&idEmpleado);
-                ///employee_newParametros();
                 break;
 
             case 4:
-                controller_editEmployee(listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_editEmployee(listaEmpleados);
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
                 break;
 
             case 5:
-                controller_removeEmployee(listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_removeEmployee(listaEmpleados);
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
                 break;
 
             case 6:
-
-                controller_ListEmployee(listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_ListEmployee(listaEmpleados);
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
                 system("pause");
                 break;
 
             case 7:
-                controller_sortEmployee(listaEmpleados);
-                //ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,0);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
-                controller_ListEmployee(listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_sortEmployee(listaEmpleados);
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
                 system("pause");
 
                 break;
 
             case 8:
-                ///controller_saveAsText();
+                controller_saveAsText("data.csv",listaEmpleados);
                 break;
 
             case 9:
-                ///controller_saveAsBinary();
+                controller_saveAsBinary("data.bin",listaEmpleados);
                 break;
 
             case 10:
@@ -106,90 +134,5 @@ int main()
         }
     }while(option != 10);
 
-
-
-
-
-
-/*
-    int i;
-    int len;
-    Employee* e1 = employee_newParametros("5","Maria","10","5000");
-    Employee* e2 = employee_newParametros("2","Carlos","15","6500");
-    Employee* e3 = employee_newParametros("6","Jose","15","7500");
-    Employee* e4 = employee_newParametros("7","Juan","10","100");
-
-    Employee* auxEmpleado;
-
-    ll_add(listaEmpleados,e1);       ///Devulve 0 si esta bien -1 si esta mal
-    ll_add(listaEmpleados,e2);
-    ll_add(listaEmpleados,e3);
-
-    ll_push(listaEmpleados,1,e4);     ///Pone a e4 entre e1 y e2.
-
-    ///ll_set(listaEmpleados,2,e4);       ///De esta manera e4 pisa a e3. Sirbe para sacar un elem de la lista modificarlo y agregarlo devuelta
-
-
-
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-
-    printf("\n");
-    ll_sort(listaEmpleados,compararPorNombre,1);
-
-
-
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-*/
-/*
-    int i;
-    int len;
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-
-    //ll_remove(listaEmpleados,1);                  ///elimina
-    auxEmpleado = ll_pop(listaEmpleados,1);         ///Saca de la lista
-
-    printf("Saque a este de la lista:\n");
-    mostrarEmpleado(auxEmpleado);
-    printf("\n");
-
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-
-    printf("\n");
-
-    LinkedList* listaAux = ll_subList(listaEmpleados,0,1);             ///El 2 param es inclusivo el 3 exclusivo Ej: (0,2) la sub lista tiene 0,1
-
-
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-*/
     return 0;
 }

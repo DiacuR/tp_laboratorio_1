@@ -83,12 +83,8 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
         {
             this = employee_new();
             int tam = sizeof(Employee);
-            printf("\n%d\n", tam);
 
             freadRetorno = fread(this,sizeof(Employee),1,pFile);
-
-            mostrarEmpleado(this);
-            printf("\n\n");
 
             if(freadRetorno == 1)
             {

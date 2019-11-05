@@ -21,7 +21,7 @@ int employee_Id(LinkedList* pArrayListEmployee, int* idEmpleado){
                 *idEmpleado= this->id;
             }
         }
-        estado= 1;
+        estado = 1;
     }
     return estado;
 }
@@ -63,7 +63,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    int retorno;
+    int retorno = 1;
     FILE* pFile;
 
     pFile = fopen(path,"rb");
@@ -73,12 +73,13 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
         ll_clear(pArrayListEmployee);
         retorno = parser_EmployeeFromBinary(pFile,pArrayListEmployee);
         fclose(pFile);
+        retorno = 0;
     }
     else
     {
         printf("\nERROR.El archivo a cargar no existe...");
     }
-    return 1;
+    return retorno;
 }
 
 /** \brief Alta de empleados
@@ -437,7 +438,37 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    int retorno = 1;
+    FILE* pFile;
+    Employee* unEmpleado;
+    int i;
+    int len;
+    int id;
+    char nombre[50];
+    int sueldo;
+    int horasTrabajadas;
+
+    if(pFile != NULL && pArrayListEmployee != NULL)
+    {
+        len = ll_len(pArrayListEmployee);
+        fprintf(pFile,"%s,%s,%s,%s\n","Id","nombre","horas","sueldo");
+
+        for(i = 0; i < len; i++)
+        {
+            unEmpleado = (Employee*)ll_get(pArrayListEmployee,i);
+
+            employee_getId(unEmpleado,&id);
+            employee_getNombre(unEmpleado,nombre);
+            employee_getHorasTrabajadas(unEmpleado,&horasTrabajadas);
+            employee_getSueldo(unEmpleado,&sueldo);
+
+            fprintf(pFile,"%d,%s,%d,%d\n",id,nombre,horasTrabajadas,sueldo);
+
+        }
+        fclose(pFile);
+        retorno = 0;
+    }
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
@@ -449,6 +480,25 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE* pFile;
+    int retorno = -1;
+    Employee* unEmpleado;
+    int len;
+    int i;
+
+    pFile = fopen(path,"wb");
+
+    if(pArrayListEmployee != NULL && pFile != NULL)
+    {
+        len = ll_len(pArrayListEmployee);
+        for(i = 0; i < len; i++)
+        {
+            unEmpleado=(Employee*)ll_get(pArrayListEmployee,i);
+            fwrite(unEmpleado,sizeof(Employee),1,pFile);
+        }
+        fclose(pFile);
+        retorno = 1;
+    }
+    return retorno;
 }
 

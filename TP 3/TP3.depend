@@ -41,3 +41,45 @@
 
 1572926429 c:\users\alumno\desktop\nueva carpeta\tp_laboratorio_1-master\tp 3\controller.h
 
+1572966651 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1572960993 c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\linkedlist.h
+
+1572960993 c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\employee.h
+	"LinkedList.h"
+
+1572964966 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\employee.c
+	<stdlib.h>
+	<string.h>
+	"Employee.h"
+
+1572966644 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"validaciones.h"
+
+1572960993 c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\controller.h
+
+1572960993 c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\validaciones.h
+
+1572966164 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1572960993 source:c:\users\alumno\desktop\tp_laboratorio_1-master\tp 3\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"validaciones.h"
+

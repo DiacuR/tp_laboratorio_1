@@ -240,8 +240,8 @@ int compararPorHorasTrabajadas(void* e1,void* e2)
     Employee* empleado1 = (Employee*)e1;
     Employee* empleado2 = (Employee*)e2;
 
-    employee_getSueldo(empleado1,&hTrabajadas);
-    employee_getSueldo(empleado2,&hTrabajadas2);
+    employee_getHorasTrabajadas(empleado1,&hTrabajadas);
+    employee_getHorasTrabajadas(empleado2,&hTrabajadas2);
 
     if(hTrabajadas > hTrabajadas2)
     {
