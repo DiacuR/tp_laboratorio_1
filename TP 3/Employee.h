@@ -1,5 +1,7 @@
 #ifndef employee_H_INCLUDED
 #define employee_H_INCLUDED
+
+#include "LinkedList.h"
 typedef struct
 {
     int id;
@@ -32,6 +34,6 @@ int compararPorSueldo(void*,void*);
 
 int compararPorNombre(void* e1,void* e2);
 
-//int ordenarAscendienteODecendiente(int orden,(*pFunc(void* void*));
+int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int criterio(void*, void*),int orden);
 
 #endif // employee_H_INCLUDED

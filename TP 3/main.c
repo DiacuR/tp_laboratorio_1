@@ -29,6 +29,40 @@ int main()
     LinkedList* listaEmpleados = ll_newLinkedList();
     FILE* pArchivo;
 
+    char legajo[40];
+    char nombre[40];
+    char horastrabajadas[40];
+    char sueldo[40];
+
+    controller_loadFromText("data.csv",listaEmpleados);
+
+
+
+    len = ll_len(listaEmpleados);
+
+    for(i = 0; i < len; i++)
+    {
+       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
+       mostrarEmpleado(auxEmpleado);
+       if(i == 250 || i == 500 || i == 750)
+       {
+           system("pause");
+       }
+    }
+    system("pause");
+    printf("\n\n\n");
+    ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,1);
+
+    for(i = 0; i < len; i++)
+    {
+       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
+       mostrarEmpleado(auxEmpleado);
+       if(i == 250 || i == 500 || i == 750)
+       {
+           system("pause");
+       }
+    }
+/*
     len = ll_len(listaEmpleados);
 
     for(i = 0; i < len; i++)
@@ -48,6 +82,7 @@ int main()
        auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
        mostrarEmpleado(auxEmpleado);
     }
+    */
 /*
     int i;
     int len;

@@ -232,19 +232,19 @@ int compararPorNombre(void* e1,void* e2)
     char nombre[50];
     char nombre2[50];
 
-    employee_getNombre(e1,&nombre);
-    employee_getNombre(e2,nombre2);
-
     Employee* empleado1 = (Employee*)e1;
     Employee* empleado2 = (Employee*)e2;
+
+    employee_getNombre(e1,nombre);
+    employee_getNombre(e2,nombre2);
 
     compara = strcmp(nombre,nombre2);
 
     return compara;
 }
 
-/*
-int ordenarAscendienteODecendiente(int orden)
+
+int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int criterio(void*, void*),int orden)
 {
     int retorno = 1;
 
@@ -252,17 +252,17 @@ int ordenarAscendienteODecendiente(int orden)
         {
         case 1:
             printf("\n\n\t---------- Ordenado de manera Ascendente ----------\n\n");
-            ll_sort(pArrayListEmployee,compararPorLegajo,comoOrdenar);
+            ll_sort(pArrayListEmployee,compararPorNombre,orden);
             retorno = 0;
             break;
 
         case 2:
             printf("\n\n\t---------- Ordenado de manera Decendente ----------\n\n");
-            ll_sort(pArrayListEmployee,compararPorLegajo,comoOrdenar);
+            ll_sort(pArrayListEmployee,criterio,orden);
             retorno = 0;
             break;
         }
 
         return retorno;
 }
-*/
+

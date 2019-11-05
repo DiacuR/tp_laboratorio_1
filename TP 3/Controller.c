@@ -13,7 +13,15 @@
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE* pArchivo;
+    int retorno=-1;
+    pArchivo = fopen(path,"rb");
+    if(pArchivo!=NULL)
+    {
+        retorno=parser_EmployeeFromText(pArchivo,pArrayListEmployee);
+    }
+    return retorno;
+
 }
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
@@ -150,7 +158,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
         formaDeOrdenar("\t---------- Ordenar por id ----------\n\n",&comoOrdenar);
 
-///        ordenarAscendienteODecendiente(comoOrdenar,);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorLegajo,comoOrdenar);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
         break;
 
     case 2:
