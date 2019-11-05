@@ -403,16 +403,26 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     case 1:
 
         formaDeOrdenar("\t---------- Ordenar por id ----------\n\n",&comoOrdenar);
-
-        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorLegajo,comoOrdenar);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorLegajo,comoOrdenar-1);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
         break;
 
     case 2:
 
         formaDeOrdenar("\t---------- Ordenar por Nombre ----------\n\n",&comoOrdenar);
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorNombre,comoOrdenar-1);
+        break;
 
+    case 3:
 
+        formaDeOrdenar("\t---------- Ordenar por Horas Trabajadas ----------\n\n",&comoOrdenar);
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorHorasTrabajadas,comoOrdenar-1);
+        break;
 
+    case 4:
+
+        formaDeOrdenar("\t---------- Ordenar por Sueldo ----------\n\n",&comoOrdenar);
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorSueldo,comoOrdenar-1);
+        break;
 
     }
 

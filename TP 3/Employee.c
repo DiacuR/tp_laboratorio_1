@@ -231,7 +231,29 @@ int compararPorSueldo(void* e1,void* e2)
     return compara;
 }
 
+int compararPorHorasTrabajadas(void* e1,void* e2)
+{
+    int compara = -1;
+    int hTrabajadas;
+    int hTrabajadas2;
 
+    Employee* empleado1 = (Employee*)e1;
+    Employee* empleado2 = (Employee*)e2;
+
+    employee_getSueldo(empleado1,&hTrabajadas);
+    employee_getSueldo(empleado2,&hTrabajadas2);
+
+    if(hTrabajadas > hTrabajadas2)
+    {
+        compara = 1;
+    }
+    else if(hTrabajadas == hTrabajadas2)
+    {
+        compara = 0;
+    }
+
+    return compara;
+}
 
 int compararPorNombre(void* e1,void* e2)
 {
@@ -365,14 +387,14 @@ int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int(*criterio)
 
     switch(orden)
         {
-        case 1:
-            printf("\n\n\t---------- Ordenado de manera Ascendente ----------\n\n");
+        case 0:
+            printf("\n\n\t---------- Ordenado de manera Decendente----------\n\n");
             ll_sort(pArrayListEmployee,criterio,orden);
             retorno = 0;
             break;
 
-        case 2:
-            printf("\n\n\t---------- Ordenado de manera Decendente ----------\n\n");
+        case 1:
+            printf("\n\n\t---------- Ordenado de manera Ascendente ----------\n\n");
             ll_sort(pArrayListEmployee,criterio,orden);
             retorno = 0;
             break;

@@ -286,8 +286,8 @@ int formaDeOrdenar(char message[], int* formaDeOrdenar)
     int retGetInt;
     system("cls");
     printf(message);
-    retGetInt = getInt(formaDeOrdenar,  "1. Ascendente\n"  ///REVISAR LAS OPCIONE CON LO QUE SE PASA COMO PARAMETRO EN LA FUNC ll_sort().
-                                        "2. Decendente\n\n"
+    retGetInt = getInt(formaDeOrdenar,  "1. Decendente\n"  ///REVISAR LAS OPCIONE CON LO QUE SE PASA COMO PARAMETRO EN LA FUNC ll_sort().
+                                        "2. Ascendente\n\n"
                                         "Ingrese Opcion: ", "ERROR. Debe ingresar un numero...",1,2);
     if(retGetInt == 0)
     {

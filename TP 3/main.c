@@ -85,11 +85,11 @@ int main()
                 break;
 
             case 7:
-               // controller_sortEmployee(listaEmpleados);
-                ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,0);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+                controller_sortEmployee(listaEmpleados);
+                //ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,0);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
                 controller_ListEmployee(listaEmpleados);
                 system("pause");
-                ///controller_sortEmployee();
+
                 break;
 
             case 8:

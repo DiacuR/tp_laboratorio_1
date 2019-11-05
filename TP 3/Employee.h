@@ -44,5 +44,7 @@ int compararPorSueldo(void*,void*);
 
 int compararPorNombre(void* e1,void* e2);
 
+int compararPorHorasTrabajadas(void* e1,void* e2);
+
 int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int(*criterio)(void* e1, void* e2),int orden);
 #endif // employee_H_INCLUDED
