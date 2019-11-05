@@ -3,7 +3,8 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Employee.h"
-
+#include "validaciones.h"
+#define ID_EMPLEADOS 1000
 /****************************************************
     Menu:
      1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
@@ -24,65 +25,92 @@ int main()
     int option = 0;
     int len;
     int i;
-    Employee* auxEmpleado;
-
+    int idEmpleado = ID_EMPLEADOS;
     LinkedList* listaEmpleados = ll_newLinkedList();
     FILE* pArchivo;
+    Employee* emp;
+    char nombre[10] = {"diacu"};
+    emp= employee_newParametros(1,nombre,150,10000);
+    mostrarColumnas();
+    mostrarEmpleado(emp);
+    do{
+            system("cls");
+            getInt(&option,"\n1. CARGAR EMPLEADOS DE data.csv (MODO TEXTO)"
+                         "\n2. CARGAR EMPLEADOS DE data.bin (MODO BINARIO)"
+                         "\n3. ALTA DE EMPLEADO"
+                         "\n4. MODIFICAR EMPLEADO"
+                         "\n5. BAJA DE EMPLEADO"
+                         "\n6. LISTAR EMPLEADOS"
+                         "\n7. ORDENAR EMPLEADOS"
+                         "\n8. GUARDAR EMPLEADOS EN data.csv (MODO TEXTO)"
+                         "\n9. GUARDAR EMPLEADOS EN data.bin (MODO BINARIO)"
+                         "\n10. SALIR\n\nElija una opcion: \n","\nERROR. No es un numero...\n", 1, 10);
+        switch(option)
+        {
+            case 1:
+                if(!controller_loadFromText("data.csv",listaEmpleados))
+                {
+                    printf("\nArchivo cargado con exito\n");
+                }
+                else
+                {
+                    printf("\nERROR. El archivo no se pudo cargar...\n");
+                }
+                system("pause");
+                break;
 
-    char legajo[40];
-    char nombre[40];
-    char horastrabajadas[40];
-    char sueldo[40];
+            case 2:
+                controller_loadFromBinary("data.bin",listaEmpleados);
+                employee_Id(listaEmpleados, &idEmpleado);
+                system("pause");
+                break;
 
-    controller_loadFromText("data.csv",listaEmpleados);
+            case 3:
+                controller_addEmployee(listaEmpleados,&idEmpleado);
+                ///employee_newParametros();
+                break;
+
+            case 4:
+                controller_editEmployee(listaEmpleados);
+                break;
+
+            case 5:
+                controller_removeEmployee(listaEmpleados);
+                break;
+
+            case 6:
+
+                controller_ListEmployee(listaEmpleados);
+                system("pause");
+                break;
+
+            case 7:
+               // controller_sortEmployee(listaEmpleados);
+                ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,0);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+                controller_ListEmployee(listaEmpleados);
+                system("pause");
+                ///controller_sortEmployee();
+                break;
+
+            case 8:
+                ///controller_saveAsText();
+                break;
+
+            case 9:
+                ///controller_saveAsBinary();
+                break;
+
+            case 10:
+                printf("\nSaliendo del Programa...");
+                system("cls");
+        }
+    }while(option != 10);
 
 
 
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-       if(i == 250 || i == 500 || i == 750)
-       {
-           system("pause");
-       }
-    }
-    system("pause");
-    printf("\n\n\n");
-    ordenarAscendienteODecendiente(listaEmpleados,compararPorNombre,1);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-       if(i == 250 || i == 500 || i == 750)
-       {
-           system("pause");
-       }
-    }
-/*
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-
-    parser_EmployeeFromText(pArchivo,listaEmpleados);
 
 
 
-    len = ll_len(listaEmpleados);
-
-    for(i = 0; i < len; i++)
-    {
-       auxEmpleado = (Employee*)ll_get(listaEmpleados,i);            ///Hace un malloc adentro
-       mostrarEmpleado(auxEmpleado);
-    }
-    */
 /*
     int i;
     int len;

@@ -3,8 +3,14 @@
 #include "Employee.h"
 
 
+Employee* new_employee()
+{
+    Employee* this;
+    this=(Employee*) malloc(sizeof(Employee));
+    return this;
+}
 
-int employee_setId(Employee* this,int id)
+int employee_setId(Employee* this, int id)
 {
 
     int todoOk = 0;
@@ -40,7 +46,7 @@ int employee_setNombre(Employee* this,char* nombre)
 
     int todoOk = 0;
 
-    if( this != NULL && nombre != NULL && strlen(nombre) > 3)
+    if( this != NULL && nombre != NULL && strlen(nombre) > 2)
     {
 
         strcpy(this->nombre, nombre);
@@ -140,38 +146,39 @@ Employee* employee_new()
 }
 
 
-Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldoStr)
+Employee* employee_newParametros(int id, char* nombre, int horasTrabajadas, int sueldo)
 {
 
     Employee* this;
+    this = employee_new();
 
-        if (idStr != NULL && nombreStr != NULL && horasTrabajadasStr != NULL && sueldoStr != NULL)
+    if( this != NULL)
+    {
+        if( !employee_setId(this, id)||
+
+            !employee_setNombre(this, nombre) ||
+
+            !employee_setHorasTrabajadas(this, horasTrabajadas) ||
+
+            !employee_setSueldo(this, sueldo))
         {
-            this  = employee_new();
-
-            if( this != NULL){
-
-            if( !employee_setId(this, atoi(idStr))||
-
-                !employee_setNombre(this, nombreStr) ||
-
-                !employee_setHorasTrabajadas(this, atoi(horasTrabajadasStr)) ||
-
-                !employee_setSueldo(this, atoi(sueldoStr)))
-                       {
-                            free(this);
-                            this = NULL;
-                       }
-            }
+            free(this);
+            this = NULL;
         }
+    }
+
 
     return this;
 }
+void mostrarColumnas()
+{
+    printf("\n\nID\t\tNOMBRE\t\tHORAS TRABAJADAS\tSUELDO\n");
+}
 
-
-void mostrarEmpleado(Employee* emp){
-    if(emp != NULL){
-    printf("%d  %s  %d  %d\n", emp->id, emp->nombre, emp->horasTrabajadas, emp->sueldo);
+void mostrarEmpleado(Employee* this){
+    if(this != NULL)
+    {
+        printf("%2d %19s %12d %24d\n", this->id, this->nombre, this->horasTrabajadas, this->sueldo);
     }
 }
 
@@ -232,11 +239,11 @@ int compararPorNombre(void* e1,void* e2)
     char nombre[50];
     char nombre2[50];
 
+    employee_getNombre(e1,&nombre);
+    employee_getNombre(e2,nombre2);
+
     Employee* empleado1 = (Employee*)e1;
     Employee* empleado2 = (Employee*)e2;
-
-    employee_getNombre(e1,nombre);
-    employee_getNombre(e2,nombre2);
 
     compara = strcmp(nombre,nombre2);
 
@@ -244,7 +251,115 @@ int compararPorNombre(void* e1,void* e2)
 }
 
 
-int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int criterio(void*, void*),int orden)
+int employee_EncontrarPorId(LinkedList* pArrayListEmployee,Employee* this, int id)
+{
+    int i;
+    int index = -1;
+    int len;
+
+    len = ll_len(pArrayListEmployee);
+
+    if(len > 0 && pArrayListEmployee != NULL)
+    {
+        for(i = 0; i < len; i++)
+        {
+            this = (Employee*)ll_get(pArrayListEmployee, i);
+
+            if( this->id == id )
+            {
+                index = i;
+                break;
+            }
+        }
+
+    }
+    return index;
+}
+
+int pedirNombre(char nombre[], int* reintentos)
+{
+    int retorno = 1;
+    int flagNombre = 0;
+
+    do
+    {
+        if(!(getString(nombre,"\nIngrese nombre: ")))
+        {
+            printf("\nError. Reingrese solo caracteres[a-z A-Z](min 3 caracteres).\n");
+            system("pause");
+            system("cls");
+            (*reintentos)--;
+        }
+        else
+        {
+            system("cls");
+            flagNombre = 1;
+            (*reintentos) = 3;
+            retorno = 0;
+        }
+    }while(flagNombre == 0 && (*reintentos) > 0);
+
+        return retorno;
+}
+
+
+int pedirHorasTrabajadas(int* horasTrabajadas, int* reintentos)
+{
+    int retornoHorasTrabajadas = 0;
+    int hsTrabajadas;
+    int retorno = 1;
+
+    hsTrabajadas = *horasTrabajadas;
+
+    do
+        {
+            retornoHorasTrabajadas = getInt(&hsTrabajadas,"\nIngrese horas trabajadas: \n","\nError. ",1,900);
+
+            validarIngresoDeDatos(retornoHorasTrabajadas,reintentos);
+
+        }
+        while(retornoHorasTrabajadas != 0 && (*reintentos) > 0);
+
+    if(retornoHorasTrabajadas == 0 && (*reintentos) > 0)
+    {
+        *horasTrabajadas = hsTrabajadas;
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+int pedirSueldo(int* sueldo, int* reintentos)
+{
+    int retornoSueldo = 0;
+    int retorno = 1;
+
+    do
+    {
+        retornoSueldo = getInt(sueldo,"\nIngrese sueldo: \n","\nError. ",1,100000);
+
+        validarIngresoDeDatos(retornoSueldo,reintentos);
+
+    }while(retornoSueldo != 0 && (*reintentos) > 0);
+
+    if(retornoSueldo == 0 && (*reintentos) > 0)
+    {
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+
+void mostrarEmpleadoAModificar(Employee* this)
+{
+    printf("\t---------- Empleado a Modificar ----------\n");
+    mostrarColumnas();
+    mostrarEmpleado(this);
+}
+
+
+int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int(*criterio)(void* e1, void* e2),int orden)
 {
     int retorno = 1;
 
@@ -252,7 +367,7 @@ int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int criterio(v
         {
         case 1:
             printf("\n\n\t---------- Ordenado de manera Ascendente ----------\n\n");
-            ll_sort(pArrayListEmployee,compararPorNombre,orden);
+            ll_sort(pArrayListEmployee,criterio,orden);
             retorno = 0;
             break;
 
@@ -265,4 +380,3 @@ int ordenarAscendienteODecendiente(LinkedList* pArrayListEmployee,int criterio(v
 
         return retorno;
 }
-

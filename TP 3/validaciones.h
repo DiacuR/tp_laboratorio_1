@@ -2,9 +2,13 @@
 #define VALIDACIONES_H_INCLUDED
 
 
-#ifndef EMPLEADO_H_INCLUDED
-#define EMPLEADO_H_INCLUDED
-
+/** \brief Pide un valor numerico.
+ *
+ * \param text[] char Mensaje que se le muestra al usuario para que sepa que ingresar.
+ * \return int  Devuelve el numero que ingreso el usuario.
+ *
+ */
+int menu(char text[]);
 /** \brief  Su funcion es pedir una cadena de char al usuario
  *
  * \param dato char*    Se usa para guardar lo que el usuario ingrese.
@@ -55,7 +59,7 @@ int esNumeroEntero(char* numero, int tam);
  * \return int  retorna '-1' si no es un numero, '-2' si esta fuera de rango, '0' si se realizo con exito
  *
  */
-int getFloat(float* input, char message[], char eMessage[], float lowLimit, float hiLimit);
+int getFloat(double* input, char message[], char eMessage[], double lowLimit, double hiLimit);
 /** \brief Valida los limites del numero flotante ingresado.
  *
  * \param num float     Numero flotante ingresado por el usuario
@@ -64,7 +68,7 @@ int getFloat(float* input, char message[], char eMessage[], float lowLimit, floa
  * \return int  retorna '1' si se realizo con exito, caso contrario retorna '0'.
  *
  */
-int validarLimitesFlotantes(float num, float lowLimit, float hiLimit);
+int validarLimitesFlotantes(double num, double lowLimit, double hiLimit);
 /** \brief  Valida que sea un Numero Flotante.
  *
  * \param numero char*  Cadena de caracteres que guarda el numero para analizar.
@@ -90,14 +94,17 @@ int getString(char* input, char mensaje[]);
  */
 int soloLetras(char* letra);
 
-/** \brief  Consulta al usuario si quiere continuar o no
+/** \brief Valida que ingresen 2 variables char
  *
  * \param input char*   Se guarda la opcion que el usuario ingrese.
  * \param mensaje[] char    Mensaje que se le muestra al usuario para que sepa que ingresar.
+ * \param primerValor char  Primer valor para validar
+ * \param segundoValor char Primer valor para validar
+ * \param reintentos int    Cantidad de veces que el usuario puede ingresar un dato erroneo.
  * \return void
  *
  */
-void continuarSiONo(char* input, char mensaje[]);
+void validacionEntreChar(char* input,char message[],char primerValor, char segundoValor, int reintentos);
 
 /** \brief Imprime Error de limite de Reintentos.
  *
@@ -117,9 +124,5 @@ int validarIngresoDeDatos(int numero, int* reintentos);
 
 
 int formaDeOrdenar(char message[], int* formaDeOrdenar);
-
-#endif // EMPLEADO_H_INCLUDED
-
-
 
 #endif // VALIDACIONES_H_INCLUDED

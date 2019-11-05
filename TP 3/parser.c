@@ -13,33 +13,52 @@
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
-char id[20];
-    char nombre[50];
-    char horasTrabajadas[20];
-    char sueldo[20];
-    int retorno;
-    Employee* unEmpleado=NULL;
-    if(pFile!=NULL && pArrayListEmployee!=NULL)
-    {
-        fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horasTrabajadas,sueldo);
+    int cant;
+    int retorno = 1;
 
-    while(!feof(pFile))
+    if(pFile != NULL && pArrayListEmployee != NULL)
     {
-        fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,nombre,horasTrabajadas,sueldo);
+        char legajo[20];
+        char nombre[20];
+        char horasTrabajadas[20];
+        char sueldo[20];
 
-        unEmpleado=employee_newParametros(id,nombre,horasTrabajadas,sueldo);
-        ll_add(pArrayListEmployee,unEmpleado);
-    }
-    fclose(pFile);
-    retorno=1;
+        fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",legajo, nombre, horasTrabajadas, sueldo);
+
+        while(!feof(pFile))
+        {
+
+            cant = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n", legajo, nombre, horasTrabajadas, sueldo);
+
+            if(cant == 4)
+            {
+                Employee* this = new_employee();
+
+                this->id = atoi(legajo);
+                strcpy(this->nombre, nombre);
+                this->horasTrabajadas = atoi(horasTrabajadas);
+                this->sueldo = atof(sueldo);
+
+                ll_add(pArrayListEmployee,this);
+            }
+            else
+            {
+                printf("\nERROR. No se pudo cargar el archivo...");
+                system("pause");
+                system("cls");
+            }
+        }
+        retorno = 0;
+        fclose(pFile);
     }
     else
     {
-        retorno=0;
+        printf("\nERROR.Parametro nulo recibido...\n");
+        system("pause");
+        system("cls");
     }
 
     return retorno;
-
 }
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
@@ -51,6 +70,47 @@ char id[20];
  */
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
+    int retorno = 1;
+    int freadRetorno;
+    int contador = 0;
+    Employee* aux = new_employee();
 
-    return 1;
+    if(pFile != NULL && pArrayListEmployee != NULL)
+    {
+        Employee* this;
+
+        while(!feof(pFile))
+        {
+            this = employee_new();
+            int tam = sizeof(Employee);
+            printf("\n%d\n", tam);
+
+            freadRetorno = fread(this,sizeof(Employee),1,pFile);
+
+            mostrarEmpleado(this);
+            printf("\n\n");
+
+            if(freadRetorno == 1)
+            {
+                mostrarEmpleado(this);
+                ll_add(pArrayListEmployee,this);
+                contador++;
+            }
+            else
+            {
+                printf("\nERROR. No se pudo cargar el archivo...");
+                system("pause");
+                system("cls");
+                break;
+            }
+        }
+        retorno = 0;
+    }
+    else
+    {
+        printf("\nERROR.Parametro nulo recibido...\n");
+        system("pause");
+        system("cls");
+    }
+    return retorno;
 }

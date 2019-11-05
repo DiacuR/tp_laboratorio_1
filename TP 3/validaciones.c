@@ -1,8 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "validaciones.h"
 
+int menu(char text[])
+{
+    int opcion;
+
+    printf("%s", text);
+    scanf("%d", &opcion);
+
+    return opcion;
+}
 
 int getInt(int* input, char message[], char eMessage[], int lowLimit, int hiLimit)
 {
@@ -27,9 +37,15 @@ int getInt(int* input, char message[], char eMessage[], int lowLimit, int hiLimi
         }
         else
         {
-            printf(eMessage);
+            printf("\nERROR. El numero esta fuera de Rango...\n");
+            system("pause");
+            system("cls");
             retorno = -2;
         }
+    }
+    else
+    {
+        printf(eMessage);
     }
     return retorno;
 }
@@ -80,11 +96,11 @@ void pedirDato(char* dato, char message[])
 }
 
 
-int getFloat(float* input,char message[],char eMessage[], float lowLimit, float hiLimit)
+int getFloat(double* input,char message[],char eMessage[], double lowLimit, double hiLimit)
 {
     char numero[10];
     int largo;
-    float validarLimite;
+    double validarLimite;
     int retorno = -1;
 
     pedirDato(numero,message);
@@ -94,12 +110,12 @@ int getFloat(float* input,char message[],char eMessage[], float lowLimit, float 
     if(!esNumeroFlotante(numero,largo))
     {
         numero[largo+1] = '\0';
-        validarLimite = atof(numero);
+        validarLimite = strtod(numero,NULL);
 
         if(validarLimitesFlotantes(validarLimite,lowLimit,hiLimit))
         {
             retorno = 0;
-            *input = atof(numero);
+            (*input) = strtod(numero,NULL);
         }
         else
         {
@@ -142,7 +158,7 @@ int esNumeroFlotante(char* numero, int tam)
     return retorno;
 }
 
-int validarLimitesFlotantes(float num, float lowLimit, float hiLimit)
+int validarLimitesFlotantes(double num, double lowLimit, double hiLimit)
 {
     int retorno;
 
@@ -162,7 +178,7 @@ int validarLimitesFlotantes(float num, float lowLimit, float hiLimit)
 int soloLetras(char* letra)
 {
     int retorno = 1;
-    int i=0;
+    int i = 0;
 
     while(letra[i] != '\0')
     {
@@ -180,7 +196,7 @@ int soloLetras(char* letra)
 
 int getString(char* input,char message[])
 {
-    char aux[256];
+    char aux[51];
     int retorno = 0;
 
     pedirDato(aux,message);
@@ -195,55 +211,72 @@ int getString(char* input,char message[])
 }
 
 
-void continuarSiONo(char* input,char message[])
+void validacionEntreChar(char* input,char message[],char primerValor, char segundoValor, int reintentos)
 {
-
+    char aux;
     do
     {
-        if(!getString(input,message))
+       if(!getString(&aux,message))
         {
-            printf("Error Debe ingresar la letra S o N");
+            printf("Error Debe ingresar la letra '%c' o '%c'\n", primerValor,segundoValor);
             system("pause");
             system("cls");
         }
+        else
+        {
+            (*input) = tolower(aux);
+        }
 
-         (*input) = tolower((*input));
 
-    }while(!(input[0] == 's' || input[0] == 'n'));
+        if(*(input) != primerValor && *(input) != segundoValor)
+        {
+            reintentos--;
+            printf("ERROR.Le quedan %d intentos.\n", reintentos);
+        }
+
+    }while((*(input) != primerValor && *(input) != segundoValor) && reintentos != 0);
 
 }
 
 void imprimirLimiteDeReintentos()
 {
-    printf("Limite de reintentos.");
+    printf("\nLimite de reintentos.\n\n");
     system("pause");
     system("cls");
 }
 
 int validarIngresoDeDatos(int numero, int* reintentos)
 {
+    int cantReintentos = (*reintentos);
     switch(numero)
-        {
+    {
 
-        case -1:
+    case -1:
 
-            printf("\nNo es un numero");
-            (*reintentos)++;
-            break;
+        printf("No es un numero\n");
+        system("pause");
+        system("cls");
+        cantReintentos--;
+        break;
 
-        case -2:
+    case -2:
 
-            printf("\nEsta Fuera de Rango");
-            (*reintentos)++;
-            break;
+        printf("Esta Fuera de Rango\n");
+        cantReintentos--;
+        system("pause");
+        system("cls");
+        break;
 
-        case 0:
+    case 0:
 
-            *reintentos = 0;
-            break;
-        }
+        cantReintentos = 3;
+        system("cls");
+        break;
+    }
 
-        return numero;
+    (*reintentos) = cantReintentos;
+
+    return numero;
 }
 
 
