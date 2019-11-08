@@ -4,38 +4,9 @@
 #include "Employee.h"
 
 
-int employee_Id(LinkedList* pArrayListEmployee, int* idEmpleado){
-    int estado= 0;
-    int i;
-
-    if(pArrayListEmployee != NULL && idEmpleado != NULL)
-    {
-        Employee* this;
-
-        for(i=0; i< ll_len(pArrayListEmployee);i++)
-        {
-            this= ll_get(pArrayListEmployee, i);
-
-            if(this->id >= *idEmpleado)
-            {
-                *idEmpleado= this->id;
-            }
-        }
-        estado = 1;
-    }
-    return estado;
-}
-
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
-    int retorno;
+    int retorno = 1;
     FILE* pFile;
 
     pFile = fopen(path,"r");
@@ -45,6 +16,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
         ll_clear(pArrayListEmployee);
         retorno = parser_EmployeeFromText(pFile, pArrayListEmployee);
         fclose(pFile);
+        retorno = 0;
     }
     else
     {
@@ -54,13 +26,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
     int retorno = 1;
@@ -82,13 +48,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Alta de empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_addEmployee(LinkedList* pArrayListEmployee, int* idEmpleado)
 {
     int id;
@@ -145,12 +105,9 @@ int controller_addEmployee(LinkedList* pArrayListEmployee, int* idEmpleado)
 
             validacionEntreChar(&respuesta,"\nDesea dar de alta a este Empleado S/N: ",'s','n',reintentos);
 
-            *idEmpleado = id;
-
-
             if(respuesta == 's')
             {
-
+                *idEmpleado = id;
                 ll_add(pArrayListEmployee,this);
 
                 retorno = 0;
@@ -169,20 +126,16 @@ int controller_addEmployee(LinkedList* pArrayListEmployee, int* idEmpleado)
         }
         else
         {
-            printf("ERROR.Datos recibidos invalidos...");
+            printf("ERROR.Datos recibidos invalidos...\n");
+            system("pause");
+            system("cls");
+            break;
         }
     }while(respuesta != 's');
 
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno;
@@ -268,16 +221,16 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
                         *this = emp;
                         ll_set(pArrayListEmployee,index,this);
                         printf("\t---------- El empleado a sido modificado ----------\n");
+                        retorno = 0;
                     }
                     else if(guardarEmpleado == 'n')
                     {
                         printf("\t---------- El empleado NO a sido modificado ----------\n");
                         aux = NULL;
+                        retorno = 1;
                     }
                 }
-
             }
-
         }
     }
     else
@@ -288,19 +241,13 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Baja de empleado
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
     int empleadoEncontrado;
     char confirmar;
     int id;
-    int retorno = -1;
+    int retorno = 1;
     int reintentos = 3;
     int len;
     Employee* this;
@@ -358,40 +305,42 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Listar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
     int i;
     int len;
+    int retorno = 1;
+    int contador = 499;
     Employee* auxEmpleado;
 
     len = ll_len(pArrayListEmployee);
-
+    mostrarColumnas();
     for(i = 0; i < len; i++)
     {
        auxEmpleado = (Employee*)ll_get(pArrayListEmployee,i);
        mostrarEmpleado(auxEmpleado);
+       if(i == contador)
+       {
+            contador += 500;
+            system("pause");
+       }
     }
-    return 1;
+    if(len == i)
+    {
+        retorno = 0;
+    }
+    return retorno;
 }
 
-/** \brief Ordenar empleados
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+    int retorno = 1;
     int order;
     int comoOrdenar;
+    int reintentos = 3;
+
     getInt(&order,"\t---------- Menu Ordenar ----------\n\n"
            "1. Ordenar por id\n"
            "2. Ordenar por Nombre\n"
@@ -404,38 +353,39 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     case 1:
 
         formaDeOrdenar("\t---------- Ordenar por id ----------\n\n",&comoOrdenar);
-        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorLegajo,comoOrdenar-1);  ///PASAR LA FUNC PARA ORDENAR COMO PARAMETRO Y PASAR LA LINKEDLIST
+        ordenarAscendienteODecendiente(pArrayListEmployee,compararPorLegajo,comoOrdenar-1);
+        retorno = 0;
         break;
 
     case 2:
 
         formaDeOrdenar("\t---------- Ordenar por Nombre ----------\n\n",&comoOrdenar);
         ordenarAscendienteODecendiente(pArrayListEmployee,compararPorNombre,comoOrdenar-1);
+        retorno = 0;
         break;
 
     case 3:
 
         formaDeOrdenar("\t---------- Ordenar por Horas Trabajadas ----------\n\n",&comoOrdenar);
         ordenarAscendienteODecendiente(pArrayListEmployee,compararPorHorasTrabajadas,comoOrdenar-1);
+        retorno = 0;
         break;
 
     case 4:
 
         formaDeOrdenar("\t---------- Ordenar por Sueldo ----------\n\n",&comoOrdenar);
         ordenarAscendienteODecendiente(pArrayListEmployee,compararPorSueldo,comoOrdenar-1);
+        retorno = 0;
         break;
+    default:
+        printf("ERROR. Tiene que elegir un numero del '1' al '4'.\n");
 
     }
 
+    return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
     int retorno = 1;
@@ -471,17 +421,11 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
     FILE* pFile;
-    int retorno = -1;
+    int retorno = 1;
     Employee* unEmpleado;
     int len;
     int i;
@@ -497,7 +441,7 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
             fwrite(unEmpleado,sizeof(Employee),1,pFile);
         }
         fclose(pFile);
-        retorno = 1;
+        retorno = 0;
     }
     return retorno;
 }

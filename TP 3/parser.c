@@ -32,7 +32,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 
             if(cant == 4)
             {
-                Employee* this = new_employee();
+                Employee* this = employee_new();
 
                 this->id = atoi(legajo);
                 strcpy(this->nombre, nombre);
@@ -73,7 +73,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
     int retorno = 1;
     int freadRetorno;
     int contador = 0;
-    Employee* aux = new_employee();
+    Employee* aux = employee_new();
 
     if(pFile != NULL && pArrayListEmployee != NULL)
     {
@@ -86,11 +86,14 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
             freadRetorno = fread(this,sizeof(Employee),1,pFile);
 
+            if(feof(pFile))
+            {
+                break;
+            }
+
             if(freadRetorno == 1)
             {
-                mostrarEmpleado(this);
                 ll_add(pArrayListEmployee,this);
-                contador++;
             }
             else
             {

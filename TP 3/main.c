@@ -30,7 +30,7 @@ int main()
     FILE* pArchivo;
 
     do{
-            //system("cls");
+            system("cls");
             getInt(&option,"\n1. CARGAR EMPLEADOS DE data.csv (MODO TEXTO)"
                          "\n2. CARGAR EMPLEADOS DE data.bin (MODO BINARIO)"
                          "\n3. ALTA DE EMPLEADO"
@@ -59,7 +59,6 @@ int main()
                 if(!controller_loadFromBinary("data.bin",listaEmpleados))
                 {
                     printf("\nArchivo cargado con exito\n");
-                    employee_Id(listaEmpleados, &idEmpleado);
                 }
                 else
                 {
@@ -83,6 +82,7 @@ int main()
                     printf("ERROR. Primero carge Archivo...");
                 }
                 break;
+                system("pause");
 
             case 5:
                 if(ll_isEmpty(listaEmpleados) == 0)
@@ -121,11 +121,27 @@ int main()
                 break;
 
             case 8:
-                controller_saveAsText("data.csv",listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_saveAsText("data.csv",listaEmpleados);
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
+                system("pause");
                 break;
 
             case 9:
-                controller_saveAsBinary("data.bin",listaEmpleados);
+                if(ll_isEmpty(listaEmpleados) == 0)
+                {
+                    controller_saveAsBinary("data.bin",listaEmpleados);
+
+                }
+                else
+                {
+                    printf("ERROR. Primero carge Archivo...");
+                }
                 break;
 
             case 10:

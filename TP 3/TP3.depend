@@ -83,3 +83,45 @@
 	<ctype.h>
 	"validaciones.h"
 
+1573230644 source:c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\controller.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1572967236 c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\linkedlist.h
+
+1573237924 c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\employee.h
+	"LinkedList.h"
+
+1573230653 source:c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\employee.c
+	<stdlib.h>
+	<string.h>
+	"Employee.h"
+
+1573238777 source:c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Controller.h"
+	"Employee.h"
+	"validaciones.h"
+
+1573238793 c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\controller.h
+
+1573238077 c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\validaciones.h
+
+1573230686 source:c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\parser.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+	"Employee.h"
+
+1572967236 source:c:\users\diacu\desktop\carpeta de trabajo\nueva carpeta (2)\tp_laboratorio_1-master\tp 3\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"validaciones.h"
+

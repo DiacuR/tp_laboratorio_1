@@ -123,6 +123,13 @@ void imprimirLimiteDeReintentos();
 int validarIngresoDeDatos(int numero, int* reintentos);
 
 
+/** \brief Le pide al usuario que ingrese de que manera quiere ordenar (descendentemente o ascendentemente)
+ *
+ * \param message[] char    Mensaje que se le muestra al usuario para que agrege la forma de ordenar
+ * \param formaDeOrdenar int*   Donde se guarda la opcion que ingreso el usuario
+ * \return int  En caso de Exito retorna '0'. Caso contrario '1'
+ *
+ */
 int formaDeOrdenar(char message[], int* formaDeOrdenar);
 
 #endif // VALIDACIONES_H_INCLUDED

@@ -2,131 +2,129 @@
 #include <string.h>
 #include "Employee.h"
 
-
+/*
 Employee* new_employee()
 {
     Employee* this;
-    this=(Employee*) malloc(sizeof(Employee));
+    this = (Employee*) malloc(sizeof(Employee));
     return this;
 }
-
+*/
 int employee_setId(Employee* this, int id)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && id > 0)
     {
-
         this->id = id;
-        todoOk = 1;
+        retorno = 0;
     }
 
-    return todoOk;
+    return retorno;
 }
-
 
 int employee_getId(Employee* this,int* id)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && id != NULL )
     {
 
         *id = this->id;
-        todoOk = 1;
+        retorno = 0;
     }
-    return todoOk;
+    return retorno;
 }
 
 
 int employee_setNombre(Employee* this,char* nombre)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && nombre != NULL && strlen(nombre) > 2)
     {
 
         strcpy(this->nombre, nombre);
-        todoOk = 1;
+        retorno = 0;
     }
 
-    return todoOk;
+    return retorno;
 
 }
 int employee_getNombre(Employee* this,char* nombre)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && nombre != NULL )
     {
 
         strcpy(nombre, this->nombre);
-        todoOk = 1;
+        retorno = 0;
     }
 
-    return todoOk;
+    return retorno;
 
 }
 
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && horasTrabajadas > 0)
     {
 
         this->horasTrabajadas = horasTrabajadas;
-        todoOk = 1;
+        retorno = 0;
     }
 
-    return todoOk;
+    return retorno;
 }
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && horasTrabajadas != NULL )
     {
 
         *horasTrabajadas = this->horasTrabajadas;
-        todoOk = 1;
+        retorno = 0;
     }
-    return todoOk;
+    return retorno;
 
 }
 
 int employee_setSueldo(Employee* this,int sueldo)
 {
 
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && sueldo > 0)
     {
 
         this->sueldo = sueldo;
-        todoOk = 1;
+        retorno = 0;
     }
 
-    return todoOk;
+    return retorno;
 
 }
 int employee_getSueldo(Employee* this,int* sueldo)
 {
-    int todoOk = 0;
+    int retorno = 1;
 
     if( this != NULL && sueldo != NULL )
     {
 
         *sueldo = this->sueldo;
-        todoOk = 1;
+        retorno = 0;
     }
-    return todoOk;
+    return retorno;
 }
 
 Employee* employee_new()
@@ -154,13 +152,13 @@ Employee* employee_newParametros(int id, char* nombre, int horasTrabajadas, int 
 
     if( this != NULL)
     {
-        if( !employee_setId(this, id)||
+        if( employee_setId(this, id)||
 
-            !employee_setNombre(this, nombre) ||
+            employee_setNombre(this, nombre) ||
 
-            !employee_setHorasTrabajadas(this, horasTrabajadas) ||
+            employee_setHorasTrabajadas(this, horasTrabajadas) ||
 
-            !employee_setSueldo(this, sueldo))
+            employee_setSueldo(this, sueldo))
         {
             free(this);
             this = NULL;
